@@ -8,6 +8,8 @@ import {
 
 import { useDispatch } from 'react-redux';
 
+import Theme from '../Theme/Theme'
+
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
@@ -31,6 +33,7 @@ function App() {
 
   return (
     <Router>
+      <Theme>
       <div>
         <Nav />
         <Switch>
@@ -109,6 +112,7 @@ function App() {
         </Switch>
         <Footer />
       </div>
+      </Theme>
     </Router>
   );
 }
