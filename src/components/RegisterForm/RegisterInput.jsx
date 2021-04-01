@@ -1,17 +1,23 @@
+import TextField from '@material-ui/core/TextField'
 
-export default function RegisterInput ({onChange, config, data}) {
+import { useEffect, useState } from 'react'
+
+export default function RegisterInput({ onChange, config, data }) {
+    console.log(data)
     return (
-        <div>
-        <label className='capitalize' htmlFor={data.field}>
-          {config.label}:
-          <input
-            type={config.type}
-            name={data.field}
-            value={data.field}
-            required={config.required || false}
-            onChange={onChange}
-          />
-        </label>
-      </div>
+        <>
+            <TextField
+                fullWidth
+                label={config.label}
+                type={config.type}
+                name={data}
+                value={data}
+                required={config.required || false}
+                onChange={onChange}
+                InputLabelProps={{
+                    shrink: !!data
+                }}
+            />
+        </>
     )
 }

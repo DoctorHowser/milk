@@ -13,6 +13,10 @@ function LandingPage() {
     history.push('/login');
   };
 
+  const onRegister = () => {
+    history.push('/registration')
+  }
+
   return (
     <div className="container">
       <h2>{heading}</h2>
@@ -52,8 +56,10 @@ function LandingPage() {
           </p>
         </div>
         <div className="grid-col grid-col_4">
-          <RegisterForm />
+          {/* <RegisterForm /> */}
+          <h4>Milk is great!</h4>
 
+          <button className="btn btn_sizeSm" onClick={onRegister}>Get Started!</button>
           <center>
             <h4>Already a Member?</h4>
             <button className="btn btn_sizeSm" onClick={onLogin}>

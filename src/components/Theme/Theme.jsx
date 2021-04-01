@@ -1,9 +1,10 @@
-import {createMuiTheme, ThemeProvider} from '@material-ui/core'
+import { createMuiTheme, ThemeProvider, Container, Grid } from '@material-ui/core'
 import 'fontsource-roboto';
 
+
 const theme = createMuiTheme({
-    palette : {
-        primary : {
+    palette: {
+        primary: {
             main: '#DBFFD6'
         },
         secondary: {
@@ -12,10 +13,15 @@ const theme = createMuiTheme({
     }
 })
 
-export default function Theme ({children}) {
+export default function Theme({ children }) {
     return (
         <ThemeProvider theme={theme}>
-            {children}
+            <Container maxWidth="sm">
+                {/* <Grid container spacing={2} alignItems='center'> */}
+                    {children}
+                {/* </Grid> */}
+                
+            </Container>
         </ThemeProvider>
     )
 }
