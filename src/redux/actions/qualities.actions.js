@@ -1,0 +1,2 @@
+export const FETCH_QUALITIES = 'FETCH_QUALITIES';
+export const SET_QUALITIES = 'SET_QUALITIES';
