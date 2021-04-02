@@ -1,14 +1,13 @@
 import { Chip, Box, Typography } from '@material-ui/core'
 import { useState, useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import  {FETCH_QUALITIES}  from '../../redux/actions/qualities.actions'
+import  {FETCH_QUALITIES, TOGGLE_SELECTED_QUALITY_OFF, TOGGLE_SELECTED_QUALITY_ON}  from '../../redux/actions/qualities.actions'
 
 
 export default function QualityPicker() {
 
     //replace with reducer
-    const qualities = useSelector((state) => state.qualities)
-    const [selected, setSelected] = useState([])
+    const {qualities, selectedQualities} = useSelector((state) => state.milkQualities)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -16,9 +15,9 @@ export default function QualityPicker() {
     }, [])
 
     const handleSelect = (id) => {
-        selected.includes(id)
-            ? setSelected(selected.filter((index) => index !== id))
-            : setSelected([...selected, id]);
+        selectedQualities.includes(id)
+            ? dispatch({type: TOGGLE_SELECTED_QUALITY_OFF, payload: id})
+            : dispatch({type: TOGGLE_SELECTED_QUALITY_ON, payload: id})
     };
 
 
@@ -28,7 +27,7 @@ export default function QualityPicker() {
             <div>
                 {qualities.map((item) => (
                     <Chip
-                        color={selected.includes(item.id) ? 'primary' : 'default'}
+                        color={selectedQualities.includes(item.id) ? 'primary' : 'default'}
                         key={item.id}
                         label={item.name}
                         onClick={() => handleSelect(item.id)}
