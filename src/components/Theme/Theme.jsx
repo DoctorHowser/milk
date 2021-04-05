@@ -5,10 +5,10 @@ import 'fontsource-roboto';
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#DBFFD6'
+            main: '#ECEAE4'
         },
         secondary: {
-            main: '#ECEAE4'
+            main: '#DBFFD6'
         }
     }
 })

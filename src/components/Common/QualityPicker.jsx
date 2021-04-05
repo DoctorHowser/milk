@@ -27,7 +27,7 @@ export default function QualityPicker() {
             <div>
                 {qualities.map((item) => (
                     <Chip
-                        color={selectedQualities.includes(item.id) ? 'primary' : 'default'}
+                        color={selectedQualities.includes(item.id) ? 'secondary' : 'default'}
                         key={item.id}
                         label={item.name}
                         onClick={() => handleSelect(item.id)}
