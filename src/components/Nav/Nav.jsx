@@ -1,46 +1,38 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
+import LogOutButton from '../Common/LogOutButton';
+import DrawerList from './DrawerList'
 import './Nav.css';
-import {useSelector} from 'react-redux';
-
+import { useState } from 'react';
+import {
+  Button,
+  Drawer,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+} from '@material-ui/core'
+import {Menu as MenuIcon} from '@material-ui/icons'
 function Nav() {
-  const user = useSelector((store) => store.user);
 
-  let loginLinkData = {
-    path: '/login',
-    text: 'Login / Register',
-  };
-
-  if (user.id != null) {
-    loginLinkData.path = '/user';
-    loginLinkData.text = 'Home';
-  }
-
+  const [drawer, toggleDrawer] = useState(false)
   return (
-    <div className="nav">
-      <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
-      </Link>
-      <div>
-        <Link className="navLink" to={loginLinkData.path}>
-          {loginLinkData.text}
-        </Link>
+    <>
+      <AppBar position="sticky" >
+        <Toolbar >
+          <IconButton onClick={() => toggleDrawer(true)} edge="start" color="secondary" aria-label="menu">
+            <MenuIcon  />
+          </IconButton>
+          <Typography variant="h6" align="center">
+            MILK
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer open={drawer} onClose={() => toggleDrawer(!drawer)}>
+        <DrawerList toggleDrawer={() => toggleDrawer(!drawer)} />
+      </Drawer>
+    </>
 
-        {user.id && (
-          <>
-            <Link className="navLink" to="/info">
-              Info Page
-            </Link>
-            <LogOutButton className="navLink" />
-          </>
-        )}
-
-        <Link className="navLink" to="/about">
-          About
-        </Link>
-      </div>
-    </div>
   );
 }
 

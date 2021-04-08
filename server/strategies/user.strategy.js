@@ -9,7 +9,12 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
   pool
-    .query('SELECT * FROM "user" WHERE id = $1', [id])
+    .query(`
+    SELECT "user".*, JSON_AGG("details") as "qualities" FROM "user"
+    LEFT JOIN "user_detail" ON "user".id = "user_detail".user_id
+    LEFT JOIN "details" ON "details".id = "user_detail".detail_id
+    WHERE "user".id = $1
+    GROUP BY "user".id`, [id])
     .then((result) => {
       // Handle Errors
       const user = result && result.rows && result.rows[0];
@@ -17,6 +22,9 @@ passport.deserializeUser((id, done) => {
       if (user) {
         // user found
         delete user.password; // remove password so it doesn't get sent
+        if(!user.qualities[0]) {
+          user.qualities = [] 
+        }
         // done takes an error (null in this case) and a user
         done(null, user);
       } else {

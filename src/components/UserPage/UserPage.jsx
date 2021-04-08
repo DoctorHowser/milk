@@ -1,5 +1,5 @@
 import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
+import LogOutButton from '../Common/LogOutButton';
 import {useSelector} from 'react-redux';
 
 function UserPage() {
@@ -7,9 +7,21 @@ function UserPage() {
   const user = useSelector((store) => store.user);
   return (
     <div className="container">
-      <h2>Welcome, {user.username}!</h2>
+      <h2>Welcome, {user.name}!</h2>
       <p>Your ID is: {user.id}</p>
-      <LogOutButton className="btn" />
+      <h3>{user.baby_birthdate}</h3>
+      <h3>{user.address}</h3>
+      <h3>{user.phone}</h3>
+      <h3>{user.username}</h3>
+      <a target="_blank" href={user.milk_bag_link}>Preferred Milk Bag</a>
+      
+
+      <ul>
+        {user.qualities.map(quality => {
+          return <li key={quality.id}>{quality.name}</li>
+        })}
+      </ul>
+      <LogOutButton />
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import RegisterInput from './RegisterInput'
-import Paper from '@material-ui/core/Paper'
+import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
 import Typography from '@material-ui/core/Typography'
 import { DateTime } from "luxon";
@@ -17,7 +18,8 @@ function RegisterForm() {
     name: { label: 'Name', type: 'text', required: true },
     address: { label: 'Address', type: 'text', required: true },
     phone: { label: 'Phone', type: 'tel', required: true },
-    baby_birthdate: { label: 'Baby Birthday', type: 'date', required: true }
+    baby_birthdate: { label: 'Baby Birthday', type: 'date', required: true },
+    milk_bag_link: { label: 'Preferred Bag', type: 'text', required: false }
   }
 
   const defaultUser = {
@@ -26,11 +28,13 @@ function RegisterForm() {
     name: '',
     address: '',
     phone: '',
-    baby_birthdate: DateTime.now().toFormat('yyyy-MM-dd')
+    baby_birthdate: DateTime.now().toFormat('yyyy-MM-dd'),
+    milk_bag_link: ''
   }
 
   const [user, setUser] = useState(defaultUser);
   const errors = useSelector((store) => store.errors);
+  const { selectedQualities } = useSelector((state) => state.milkQualities)
   const dispatch = useDispatch();
 
   const handleUserFormChange = (key, value) => {
@@ -47,46 +51,57 @@ function RegisterForm() {
 
     dispatch({
       type: 'REGISTER',
-      payload: user,
+      payload: { ...user, qualities: selectedQualities }
+
+
     });
   }; // end registerUser
 
   let inputs = [];
   for (let key in user) {
-    console.log(user[key])
     inputs.push(
-      <Grid key={key} item>
-        <RegisterInput
-          
-          onChange={e => handleUserFormChange(key, e.target.value)}
-          config={userConfig[key]}
-          data={user[key]}
-        />
-      </Grid>)
+      <RegisterInput
+        key={key}
+        onChange={e => handleUserFormChange(key, e.target.value)}
+        config={userConfig[key]}
+        data={user[key]}
+      />
+    )
   }
 
   return (
-    
-    <Paper>
-      <Grid container spacing={2} justify='center'>
-      <form onSubmit={registerUser}>
-        <Grid item xs={12}>
-        <Typography variant='h3' gutterBottom>Get Started</Typography>
 
-        </Grid>
+    // <Paper>
+    <Grid container spacing={2} justify="space-evenly">
+      <Grid item xs={12} >
+        <Typography align="center" variant='h3' gutterBottom>Get Started</Typography>
+      </Grid>
+      <form onSubmit={registerUser}>
+
         {errors.registrationMessage && (
           <h3 className="alert" role="alert">
             {errors.registrationMessage}
           </h3>
         )}
-        {inputs}
-        <QualityPicker />
-        <div>
-          <input className="btn" type="submit" name="submit" value="Register" />
-        </div>
+        <Grid item xs={12} container spacing={2} justify="center">
+          <Box>
+            {inputs}
+          </Box>
+        </Grid>
+
+
+        <Grid item xs={12} container spacing={2} justify="center" alignItems="center">
+          <QualityPicker />
+        </Grid>
+
+        <Grid item xs={12} container justify="flex-end" spacing={6}>
+          <Grid item>
+            <Button variant="contained" type="submit" name="submit">Register</Button>
+          </Grid>
+        </Grid>
       </form>
-      </Grid>
-    </Paper>
+    </Grid>
+    // </Paper>
   );
 }
 

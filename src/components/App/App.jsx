@@ -34,7 +34,6 @@ function App() {
   return (
     <Router>
       <Theme>
-      <div>
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -111,7 +110,6 @@ function App() {
           </Route>
         </Switch>
         <Footer />
-      </div>
       </Theme>
     </Router>
   );
