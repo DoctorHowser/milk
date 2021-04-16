@@ -1,7 +1,7 @@
 import {Grid, TextField} from '@material-ui/core'
 
 
-export default function RegisterInput({ onChange, config, data }) {
+export default function Input({ onChange, config, data }) {
     return (
         <Grid item>
             <TextField

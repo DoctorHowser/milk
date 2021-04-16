@@ -1,26 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import RegisterInput from './RegisterInput'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
 import Typography from '@material-ui/core/Typography'
 import { DateTime } from "luxon";
+import RegisterInput from '../Common/Input'
 import QualityPicker from '../Common/QualityPicker';
+import {userConfig} from '../../config/forms'
 
 function RegisterForm() {
-
-
-  const userConfig = {
-    username: { label: 'Email', type: 'email', required: true },
-    password: { label: 'Password', type: 'password', required: true },
-    name: { label: 'Name', type: 'text', required: true },
-    address: { label: 'Address', type: 'text', required: true },
-    phone: { label: 'Phone', type: 'tel', required: true },
-    baby_birthdate: { label: 'Baby Birthday', type: 'date', required: true },
-    milk_bag_link: { label: 'Preferred Bag', type: 'text', required: false }
-  }
 
   const defaultUser = {
     username: '',
@@ -91,7 +81,7 @@ function RegisterForm() {
 
 
         <Grid item xs={12} container spacing={2} justify="center" alignItems="center">
-          <QualityPicker />
+          <QualityPicker editable selectedQualities={selectedQualities}/>
         </Grid>
 
         <Grid item xs={12} container justify="flex-end" spacing={6}>

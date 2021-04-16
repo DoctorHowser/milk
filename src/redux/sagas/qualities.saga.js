@@ -1,12 +1,22 @@
-import {takeEvery, put} from 'redux-saga/effects';
+import {takeEvery, put, select} from 'redux-saga/effects';
 import axios from 'axios'
 
 import  {FETCH_QUALITIES, SET_QUALITIES}  from '../actions/qualities.actions'
 
 
 function* fetchQualities(action) {
-    const {data} = yield axios.get('/api/qualities');
-    yield put({type: SET_QUALITIES, payload: data})
+    try {
+        const {qualities} = yield select(store => store.milkQualities)
+        if (qualities.length) {
+            return;
+        }
+        const {data} = yield axios.get('/api/qualities');
+        yield put({type: SET_QUALITIES, payload: data})
+    } catch (err) {
+        yield put({type : 'ERROR'})
+        console.error(err)
+    }
+
 }
 
 function* qualitiesSaga() {

@@ -1,13 +1,13 @@
 import { Chip, Typography, Grid } from '@material-ui/core'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FETCH_QUALITIES, TOGGLE_SELECTED_QUALITY_OFF, TOGGLE_SELECTED_QUALITY_ON } from '../../redux/actions/qualities.actions'
+import { FETCH_QUALITIES, TOGGLE_SELECTED_QUALITY } from '../../redux/actions/qualities.actions'
 
 
-export default function QualityPicker() {
+export default function QualityPicker({selectedQualities, editable}) {
 
     //replace with reducer
-    const { qualities, selectedQualities } = useSelector((state) => state.milkQualities)
+    const { qualities } = useSelector((state) => state.milkQualities)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -15,9 +15,9 @@ export default function QualityPicker() {
     }, [])
 
     const handleSelect = (id) => {
-        selectedQualities.includes(id)
-            ? dispatch({ type: TOGGLE_SELECTED_QUALITY_OFF, payload: id })
-            : dispatch({ type: TOGGLE_SELECTED_QUALITY_ON, payload: id })
+        if(editable) {
+            dispatch({ type: TOGGLE_SELECTED_QUALITY, payload: id })
+        }
     };
 
 
@@ -27,8 +27,10 @@ export default function QualityPicker() {
                 <Typography align="center" variant='h6'>Milk Qualities</Typography>
             </Grid>
 
+            <Grid item xs={12} container>
+
             {qualities.map((item) => (
-                <Grid item>
+                <Grid key={item.id} item xs={4}>
                     <Chip
                         color={selectedQualities.includes(item.id) ? 'secondary' : 'default'}
                         key={item.id}
@@ -38,6 +40,8 @@ export default function QualityPicker() {
                 </Grid>
 
             ))}
+            </Grid>
+
 
         </>
     )

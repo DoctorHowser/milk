@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import LogOutButton from '../Common/LogOutButton';
 import DrawerList from './DrawerList'
 import './Nav.css';
 import { useState } from 'react';

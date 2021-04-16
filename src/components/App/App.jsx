@@ -23,6 +23,18 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
+import {Paper, makeStyles} from '@material-ui/core'
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '95%',
+    },
+  },
+}));
+
 
 function App() {
   const dispatch = useDispatch();
@@ -31,11 +43,16 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
 
+  const classes = useStyles();
+
+  
+
   return (
     <Router>
       <Theme>
         <Nav />
         <Switch>
+          <Paper className={classes.root}>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
 
@@ -104,10 +121,7 @@ function App() {
             <LandingPage />
           </ProtectedRoute>
 
-          {/* If none of the other routes matched, we will show a 404. */}
-          <Route>
-            <h1>404</h1>
-          </Route>
+          </Paper>
         </Switch>
         <Footer />
       </Theme>

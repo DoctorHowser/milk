@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import LoginPage from '../LoginPage/LoginPage';
 import {useSelector} from 'react-redux';
+import Loading from '../Common/Loading.jsx'
 
 // A Custom Wrapper Component -- This will keep our code DRY.
 // Responsible for watching redux state, and returning an appropriate component
@@ -14,7 +15,8 @@ import {useSelector} from 'react-redux';
 // and by checking req.user for authorization
 
 function ProtectedRoute(props) {
-  const user = useSelector((store) => store.user);
+  const {userData, loading} = useSelector((store) => store.user);
+
 
   // Using destructuring, this takes ComponentToProtect from component
   // prop and grabs all other props to pass them along to Route
@@ -28,8 +30,11 @@ function ProtectedRoute(props) {
   const ComponentToProtect = props.component || (() => props.children);
 
   let ComponentToShow;
-
-  if (user.id) {
+  // if (loading) {
+  //   ComponentToShow = Loading
+  // }
+  // else 
+  if (userData.id) {
     // if the user is logged in (only logged in users have ids)
     // show the component that is protected
     ComponentToShow = ComponentToProtect;
@@ -41,9 +46,9 @@ function ProtectedRoute(props) {
 
 
   // redirect a logged in user if an authRedirect prop has been provided
-  if (user.id && authRedirect != null) {
+  if (userData.id && authRedirect != null) {
     return <Redirect exact from={otherProps.path} to={authRedirect} />;
-  } else if (!user.id && authRedirect != null) {
+  } else if (!userData.id && authRedirect != null) {
     ComponentToShow = ComponentToProtect;
   }
 

@@ -1,17 +1,27 @@
 import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core'
+import { Person, Opacity, ChildCare } from '@material-ui/icons'
+import { useHistory } from 'react-router-dom';
+import LogOutButton from '../Common/LogOutButton';
+import { useSelector } from 'react-redux'
 
 export default function DrawerList({ toggleDrawer }) {
 
-    // let loginLinkData = {
-    //     path: '/login',
-    //     text: 'Login / Register',
-    // };
+  const {userData} = useSelector(store => store.user)
+  const history = useHistory()
 
-    // if (user.id != null) {
-    //     loginLinkData.path = '/user';
-    //     loginLinkData.text = 'Home';
-    // }
-    {/* <div className="nav">
+  const views = [
+    
+    { path: '/user', text: 'My Profile', icon: <Person />, loggedIn: true },
+    { path: '/login', text: 'Login/Register', icon: <Person />, loggedIn: false },
+    { path: '/offers', text: 'Current Offers', icon: <Opacity />, loggedIn: true },
+    { path: '/requests', text: 'Requests', icon: <ChildCare />, loggedIn: true },
+    { path: '/logout', text: 'Logout', icon: <Person />, loggedIn: true },
+
+    // {path: '/user', text: 'My Profile', icon : Person},
+    // {path: '/user', text: 'My Profile', icon : Person}
+  ]
+
+  {/* <div className="nav">
       <Link to="/home">
         <h2 className="nav-title">Prime Solo Project</h2>
       </Link>
@@ -20,7 +30,7 @@ export default function DrawerList({ toggleDrawer }) {
           {loginLinkData.text}
         </Link>
 
-        {user.id && (
+        {userData.id && (
           <>
             <Link className="navLink" to="/info">
               Info Page
@@ -35,25 +45,38 @@ export default function DrawerList({ toggleDrawer }) {
       </div>
     </div> */}
 
-    return (
-        <div
-            role="presentation"
-            onClick={toggleDrawer}
-            onKeyDown={toggleDrawer}
-        >
-            <List>
-                <ListItem button>
-                    <ListItemIcon></ListItemIcon>
-                    <ListItemText primary={"text"} />
+  return (
+    <div
+      role="presentation"
+      onClick={toggleDrawer}
+      onKeyDown={toggleDrawer}
+    >
+      <List>
+        {views.map(view => {
+
+
+          return (
+            !!userData.id == view.loggedIn && (
+              <>
+                <ListItem button onClick={() => history.push(view.path)}>
+                  <ListItemIcon>{view.icon}</ListItemIcon>
+                  <ListItemText primary={view.text} />
                 </ListItem>
 
                 <Divider />
-                <ListItem button >
-                    <ListItemIcon></ListItemIcon>
-                    <ListItemText primary={"text"} />
-                </ListItem>
-            </List>
+              </>
+            )
+          )
 
-        </div>
-    );
+
+        })}
+
+        <ListItem button >
+          <ListItemIcon></ListItemIcon>
+          <ListItemText primary={"text"} />
+        </ListItem>
+      </List>
+
+    </div>
+  );
 }

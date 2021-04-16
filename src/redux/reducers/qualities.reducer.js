@@ -1,4 +1,4 @@
-import { SET_QUALITIES, TOGGLE_SELECTED_QUALITY_ON, TOGGLE_SELECTED_QUALITY_OFF } from '../actions/qualities.actions'
+import { SET_QUALITIES, TOGGLE_SELECTED_QUALITY } from '../actions/qualities.actions'
 import {combineReducers} from 'redux'
 
 const qualities = (state = [], action) => {
@@ -13,10 +13,13 @@ const qualities = (state = [], action) => {
 const selectedQualities = (state = [], action) => {
   const id = action.payload
   switch (action.type) {
-    case TOGGLE_SELECTED_QUALITY_ON:
-      return [...state, id]
-    case TOGGLE_SELECTED_QUALITY_OFF:
-      return state.filter((index) => index !== id)
+    case TOGGLE_SELECTED_QUALITY:
+      let newState;
+      state.includes(action.payload) ? 
+        newState = state.filter((index) => index !== id) 
+        : newState = [...state, id] 
+        return newState;
+
     default:
       return state;
   }

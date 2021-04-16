@@ -10,7 +10,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
   pool
     .query(`
-    SELECT "user".*, JSON_AGG("details") as "qualities" FROM "user"
+    SELECT "user".*, ARRAY_AGG("details".id) as "qualities" FROM "user"
     LEFT JOIN "user_detail" ON "user".id = "user_detail".user_id
     LEFT JOIN "details" ON "details".id = "user_detail".detail_id
     WHERE "user".id = $1
