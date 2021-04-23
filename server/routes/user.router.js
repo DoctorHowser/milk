@@ -49,6 +49,52 @@ router.post('/register', async (req, res, next) => {
   ;
 });
 
+router.put('/', rejectUnauthenticated, async(req, res) => {
+  const client = await pool.connect()
+
+  try {
+    await client.query("BEGIN;")
+    const {id} = req.user
+    const {  
+      name, 
+      address, 
+      phone, 
+      baby_birthdate, 
+      milk_bag_link, 
+      qualities } = req.body;
+
+      const queryTextUser = `
+        UPDATE "user" 
+        SET (name, address, phone, baby_birthdate, milk_bag_link) = 
+        ($1, $2, $3, $4, $5)
+        WHERE "user".id = $6;
+      `
+      const userValues = [name, address, phone, baby_birthdate, milk_bag_link, id]
+      await client.query(queryTextUser, userValues);
+
+
+      const deleteExistingQualities = `
+      DELETE FROM "user_detail"
+      WHERE "user_id" = $1`
+      await client.query(deleteExistingQualities, [id])
+      const qualitiesQuery = `INSERT INTO "user_detail" ("user_id", "detail_id") VALUES ($1, $2)`
+      await Promise.all(qualities.map(async (qId) => {
+        await client.query(qualitiesQuery, [id, qId])
+      }))
+
+      await client.query('COMMIT')
+      res.sendStatus(200);
+
+
+
+  } catch (err) {
+    console.log('User update failed: ', err);
+    res.sendStatus(500);
+  } finally {
+    client.release()
+  }
+})
+
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful

@@ -20,10 +20,11 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
+import RegisterPage from '../RegisterPage/RegisterPage'
+import OffersPage from '../OffersPage/OffersPage'
 
 import './App.css';
-import {Paper, makeStyles} from '@material-ui/core'
+import { Paper, makeStyles } from '@material-ui/core'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -45,14 +46,16 @@ function App() {
 
   const classes = useStyles();
 
-  
+
 
   return (
-    <Router>
-      <Theme>
+    <Theme>
+
+      <Router>
         <Nav />
+        <Paper className={classes.root}>
         <Switch>
-          <Paper className={classes.root}>
+
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
 
@@ -75,6 +78,14 @@ function App() {
             path="/user"
           >
             <UserPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/offers"
+          >
+            <OffersPage />
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -121,11 +132,13 @@ function App() {
             <LandingPage />
           </ProtectedRoute>
 
-          </Paper>
         </Switch>
-        <Footer />
-      </Theme>
-    </Router>
+        </Paper>
+
+      <Footer />
+      </Router>
+    </Theme >
+
   );
 }
 

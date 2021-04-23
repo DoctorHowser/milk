@@ -81,7 +81,7 @@ function RegisterForm() {
 
 
         <Grid item xs={12} container spacing={2} justify="center" alignItems="center">
-          <QualityPicker editable selectedQualities={selectedQualities}/>
+          <QualityPicker action='TOGGLE_SELECTED_QUALITY' editable />
         </Grid>
 
         <Grid item xs={12} container justify="flex-end" spacing={6}>

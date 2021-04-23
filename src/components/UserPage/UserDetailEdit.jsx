@@ -8,12 +8,13 @@ import { useEffect } from 'react';
 
 export default function UserDetailEdit({ toggleEdit }) {
     const dispatch = useDispatch();
-    const { edit, userData } = useSelector((store) => store.user)
+    const  edit  = useSelector((store) => store.edit);
+    const {selectedQualities} = useSelector(store => store.milkQualities)
 
     useEffect(() => {
-      dispatch({type: 'SET_EDIT_USER', payload: userData})
+      dispatch({type: 'SET_EDIT_USER_FLOW'})
 
-    },[userData])
+    },[])
 
     const handleUserFormChange = (key, value) => {
         dispatch(
@@ -22,8 +23,9 @@ export default function UserDetailEdit({ toggleEdit }) {
     }
 
     const save = (e) => {
-        e.preventDefault()
-        toggleEdit()
+        e.preventDefault();
+        dispatch({type: 'UPDATE_USER', payload: {...edit, qualities: selectedQualities }, onComplete: toggleEdit})
+        // toggleEdit()
     }
 
     const cancel = () => {

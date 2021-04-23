@@ -3,6 +3,8 @@ import LogOutButton from '../Common/LogOutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import QualityPicker from '../Common/QualityPicker'
 
+import {EDIT_SELECTED_QUALITIES} from '../../redux/actions/qualities.actions'
+
 import { Typography, Button, Grid } from '@material-ui/core'
 import { Edit } from '@material-ui/icons'
 import UserDetailEdit from './UserDetailEdit'
@@ -18,8 +20,9 @@ function UserPage() {
     }
   }, [])
  
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
-  const user = useSelector((store) => store.user);
+  const {userData} = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+
   const [isEditing, setIsEditing] = useState(false);
 
   const setEdit = () => {
@@ -35,7 +38,7 @@ function UserPage() {
   console.log('rendered userpage', isEditing);
   return (
     <Grid container spacing={2} justify="space-evenly">
-      <Typography variant='h2'>Welcome, {user.userData.name}!</Typography>
+      <Typography variant='h2'>Welcome, {userData.name}!</Typography>
       {!isEditing &&
         (<Button
           variant="contained"
@@ -47,9 +50,9 @@ function UserPage() {
         </Button>)
       }
 
-      {isEditing ? <UserDetailEdit toggleEdit={toggleEdit}/> : <UserDetailDisplay userData={user.userData} />}
+      {isEditing ? <UserDetailEdit toggleEdit={toggleEdit}/> : <UserDetailDisplay userData={userData} />}
 
-      <QualityPicker selectedQualities={user.userData.qualities} editable={isEditing} />
+      <QualityPicker action='TOGGLE_SELECTED_QUALITY' editable={isEditing} />
       <LogOutButton />
     </Grid>
   );
