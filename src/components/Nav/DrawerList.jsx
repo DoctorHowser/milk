@@ -71,10 +71,6 @@ export default function DrawerList({ toggleDrawer }) {
 
         })}
 
-        <ListItem button >
-          <ListItemIcon></ListItemIcon>
-          <ListItemText primary={"text"} />
-        </ListItem>
       </List>
 
     </div>

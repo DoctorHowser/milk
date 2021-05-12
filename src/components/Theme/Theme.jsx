@@ -1,10 +1,10 @@
-import { createMuiTheme, ThemeProvider, Container, Paper, CssBaseline } from '@material-ui/core'
+import { createMuiTheme, ThemeProvider, Container, CssBaseline } from '@material-ui/core'
 import 'fontsource-roboto';
 
 
 const theme = createMuiTheme({
     palette: {
-        type: 'dark',
+        type: 'light',
         primary: {
           main: '#c8ecc1',
         },
@@ -19,7 +19,7 @@ export default function Theme({ children }) {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Container disableGutters maxWidth={false}>
+            <Container maxWidth={false}>
                 {/* <Grid container spacing={2} alignItems='center'> */}
                     {children}
                 {/* </Grid> */}

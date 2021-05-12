@@ -8,6 +8,8 @@ function* updateUser(action) {
     if (action.onComplete) {
       action.onComplete()
     }
+    yield put({type : 'SET_MESSAGE', payload : 'Updated!'})
+
     yield put({type: 'FETCH_USER'});
   } catch (err) {
     console.log(err);

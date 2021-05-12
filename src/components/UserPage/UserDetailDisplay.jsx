@@ -1,20 +1,35 @@
 
-import {Typography, Link} from '@material-ui/core';
-import {ShoppingCart} from '@material-ui/icons'
+import { Typography, Link, Grid } from '@material-ui/core';
+import { ShoppingCart } from '@material-ui/icons'
 
-export default function UserDetailDisplay({userData}) {
+export default function UserDetailDisplay({ userData }) {
     return (
         <>
-        <Typography>Your Baby's Birthday: {userData.baby_birthdate}</Typography>
-        <Typography>Location: {userData.address}</Typography>
-        <Typography>Phone: {userData.phone}</Typography>
-  
-        <Typography>
-          <Link target="_blank" href={userData.milk_bag_link}>
-          Preferred Milk Bag
-          <ShoppingCart />
-           </Link>
-        </Typography>
+
+            <Grid item xs="6">
+                <Typography variant="subtitle1">Your Baby's Birthday:</Typography>
+                <Typography>{userData.baby_birthdate}</Typography>
+            </Grid>
+            <Grid item xs="6">
+                <Typography variant="subtitle1">Location:</Typography>
+                <Typography variant="subtitle1">{userData.address}</Typography>
+
+            </Grid>
+            <Grid item xs="6">
+                <Typography variant="subtitle1">Phone: {userData.phone}</Typography>
+            </Grid>
+            <Grid item xs="6">
+                <Typography variant="body1">
+
+                    <Link target="_blank" href={userData.milk_bag_link}>
+                        <ShoppingCart />
+
+                        Preferred Milk Bag
+                    </Link>
+                </Typography>
+            </Grid>
+
+
         </>
     )
 }

@@ -19,6 +19,8 @@ function* addOffer(action) {
         if(action.onSuccess) {
             action.onSuccess()
         }
+        yield put({type : 'SET_MESSAGE', payload : 'Added!'})
+
         yield put({type: 'FETCH_OFFERS'})
     } catch (error) {
         
@@ -28,6 +30,7 @@ function* addOffer(action) {
 function* deleteOffer(action) {
     try {
         yield axios.delete(`/api/offers/${action.payload}`)
+        yield put({type : 'SET_MESSAGE', payload : 'Deleted!'})
         yield put({type: 'FETCH_OFFERS'})
     } catch (error) {
         

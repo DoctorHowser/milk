@@ -21,14 +21,15 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function OffersPage() {
+export default function RequestsPage() {
     const styles = useStyles();
-    const offers = useSelector(store => store.offers)
-    const [offer, setOffer] = useState({})
+    const requests = useSelector(store => store.requests)
+    const [request, setRequest] = useState({})
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch({ type: 'FETCH_OFFERS' })
+        console.log('requests')
+        dispatch({ type: 'FETCH_REQUESTS' })
     }, [])
 
 
@@ -36,9 +37,9 @@ export default function OffersPage() {
     const [open, setOpen] = useState(false);
 
     const handleChange = (key, value) => {
-        setOffer(
+        setRequest(
             {
-                ...offer,
+                ...request,
                 [key]: value
             }
         )
@@ -56,18 +57,19 @@ export default function OffersPage() {
 
     const handleAdd = () => {
 
-        console.log(offer)
-        dispatch({type: 'ADD_OFFER', payload: offer, onSuccess:handleClose})
+        console.log(request)
+        dispatch({type: 'ADD_REQUEST', payload: request, onSuccess: handleClose})
     }
 
+    console.log('requests rendered', requests)
     return (
         <Grid container>
-            <Typography align="center" variant="h4">OFFERS</Typography>
+            <Typography align="center" variant="h4">REQUESTS</Typography>
 
 
-            {offers.map(offer => {
+            {requests.map(request => {
                 return (
-                    <Post key={offer.id} offer data={offer} />
+                    <Post key={request.id} request data={request} />
                 )
             })}
             <Grid item>
@@ -76,43 +78,39 @@ export default function OffersPage() {
                 </Fab>
             </Grid>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                <DialogTitle id="form-dialog-title">Add Request</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Add New Offer
+                        Add New Request
                     </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="Volume of Donation (ml)"
-                        value={offer.volume}
+                        label="Baby's Name"
                         type="email"
                         fullWidth
-                        onChange={(event) => handleChange('volume', event.target.value)}
+                        onChange={(event) => handleChange('baby_name', event.target.value)}
                     />
                     <TextField
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="Date of Production"
+                        label="Date of Birth"
                         type="date"
                         fullWidth
-                        value={offer.milk_date}
-                        InputLabelProps={{shrink: true}}
-                        onChange={(event) => handleChange('milk_date', event.target.value)}
+                        onChange={(event) => handleChange('baby_dob', event.target.value)}
 
                     />
                     <TextField
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="Description/Notes"
+                        label="My Story"
                         type="email"
                         fullWidth
                         multiline
-                        value={offer.description}
-                        onChange={(event) => handleChange('description', event.target.value)}
+                        onChange={(event) => handleChange('story', event.target.value)}
 
                     />
                 </DialogContent>
@@ -121,7 +119,7 @@ export default function OffersPage() {
                         Cancel
                     </Button>
                     <Button onClick={handleAdd} color="primary">
-                        Add New Offer
+                        Add New Request
                     </Button>
                 </DialogActions>
             </Dialog>

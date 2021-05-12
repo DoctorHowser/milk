@@ -21,17 +21,20 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage'
-import OffersPage from '../OffersPage/OffersPage'
+import OffersPage from '../OffersPage/OffersPage';
+import RequestsPage from '../RequestsPage/RequestsPage'
 
 import './App.css';
 import { Paper, makeStyles } from '@material-ui/core'
+import SimpleSnackbar from '../SnackBar/SnackBar';
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
+      margin: theme.spacing(2),
       width: '95%',
+      height: '90vh'
     },
   },
 }));
@@ -42,7 +45,8 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
-  }, [dispatch]);
+    dispatch({ type:'FETCH_QUALITIES' })    
+  }, []);
 
   const classes = useStyles();
 
@@ -86,6 +90,13 @@ function App() {
             path="/offers"
           >
             <OffersPage />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/requests"
+          >
+            <RequestsPage />
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -137,6 +148,7 @@ function App() {
 
       <Footer />
       </Router>
+      <SimpleSnackbar />
     </Theme >
 
   );
