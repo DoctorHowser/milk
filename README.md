@@ -3,9 +3,8 @@
 This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
 
 
-## Use the Template for This Repository (Don't Clone)
+A social network-ish way to share milk. Oftentimes, women who cannot produce milk will use formula, but some would prefer to use donor milk. Currently this is done in facebook groups, text messages, and disjointed. This will allow people to post requests and offers and help bridge the gap between people who need and those who can help.
 
-- Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account.
 
 
 ## Prerequisites
