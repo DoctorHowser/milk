@@ -1,11 +1,11 @@
 import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core'
 import { Person, Opacity, ChildCare } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom';
-import LogOutButton from '../Common/LogOutButton';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 export default function DrawerList({ toggleDrawer }) {
 
+  const dispatch = useDispatch();
   const {userData} = useSelector(store => store.user)
   const history = useHistory()
 
@@ -15,7 +15,7 @@ export default function DrawerList({ toggleDrawer }) {
     { path: '/login', text: 'Login/Register', icon: <Person />, loggedIn: false },
     { path: '/offers', text: 'Current Offers', icon: <Opacity />, loggedIn: true },
     { path: '/requests', text: 'Requests', icon: <ChildCare />, loggedIn: true },
-    { path: '/logout', text: 'Logout', icon: <Person />, loggedIn: true },
+    // { path: '/logout', text: 'Logout', icon: <Person />, loggedIn: true },
 
     // {path: '/user', text: 'My Profile', icon : Person},
     // {path: '/user', text: 'My Profile', icon : Person}
@@ -70,7 +70,15 @@ export default function DrawerList({ toggleDrawer }) {
 
 
         })}
-
+        {userData.id && (
+        <ListItem button onClick={() => {
+          dispatch({ type: 'LOGOUT' });
+          history.push('/home');
+          }}>
+            <ListItemIcon><Person /></ListItemIcon>
+                  <ListItemText primary={`Log Out`} />
+            </ListItem>
+        )}
       </List>
 
     </div>

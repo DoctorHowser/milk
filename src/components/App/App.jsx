@@ -142,6 +142,7 @@ function App() {
           >
             <LandingPage />
           </ProtectedRoute>
+          
 
         </Switch>
         </Paper>
