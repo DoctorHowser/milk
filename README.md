@@ -1,12 +1,10 @@
 
-# EDA Project
+#  Milk
 This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
 
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
 
-## Use the Template for This Repository (Don't Clone)
+A social network-ish way to share milk. Oftentimes, women who cannot produce milk will use formula, but some would prefer to use donor milk. Currently this is done in facebook groups, text messages, and disjointed. This will allow people to post requests and offers and help bridge the gap between people who need and those who can help.
 
-- Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account.
 
 
 ## Prerequisites
@@ -116,6 +114,3 @@ This code is also heavily commented. We recommend reading through the comments, 
 1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
 1. In the deploy section, select manual deploy
 
-## Update Documentation
-
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
